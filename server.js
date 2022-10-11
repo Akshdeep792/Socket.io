@@ -14,11 +14,11 @@ const PORT = 3000 || process.env.PORT;
 
 const botName = 'ChatcordBOT'
 io.on('connection', socket => {
-
+    //Recieves message from client
     socket.on('joinRoom', ({ username, room }) => {
         const user = userJoin(socket.id, username, room)
         socket.join(user.room)
-
+        //sending message to client
         socket.emit('message', formatMessage(botName, 'Welcome to the chat cord'))
 
         socket.broadcast.to(user.room).emit('message', formatMessage(botName, `${user.username} has joined the chat`))
